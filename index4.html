@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JS</title>
+</head>
+<body>
+    <script> /*
+        let name = parseInt(prompt("Enter a number:")); 
+        const numbers = [10, 20, 30, 40, 50, 60];  
+        let found = false; 
+    
+        for (let index = 0; index < numbers.length; index++) { 
+            if (name === numbers[index]) {
+                found = true;
+                break; 
+            }
+        }
+    
+        if (found) {
+            console.log("true");
+        } else {
+            console.log("false");
+        }
+        
+
+//1 Declare variables to store your first name, last name, marital status, country and age in a single line
+let firstName = "Beka", lastName = "Kebede", maritalStatus = "Single", country = "Ethiopia", age = 23;
+
+
+
+//2 Generate a random number between 0 and 100 inclusively.
+let randomNumber = (Math.random() * 100);
+console.log(randomNumber);
+
+
+
+
+//3 Get length and width using prompt and calculate an area of rectangle (area = length x width and the perimeter of rectangle (perimeter = 2 x (length + width))
+let length = (prompt("Enter the length of the rectangle:"));
+        let width = (prompt("Enter the width of the rectangle:"));
+        let area = length * width;
+        let perimeter = 2 * (length + width);
+        console.log("Area of the rectangle: " + area);
+        console.log("Perimeter of the rectangle: " + perimeter);
+
+/* 4 Write a code which can give grades to students according to theirs scores:
+80-100, A
+70-89, B
+60-69, C
+50-59, D
+0-49, F 
+let score = parseInt(prompt("Enter the student's score (0-100):"));
+        let grade;
+        if (score >= 80 && score <= 100) {
+            grade = "A";
+        } else if (score >= 70 && score <= 89) {
+            grade = "B";
+        } else if (score >= 60 && score <= 69) {
+            grade = "C";
+        } else if (score >= 50 && score <= 59) {
+            grade = "D";
+        } else if (score >= 0 && score <= 49) {
+            grade = "F";
+        } else {
+            grade = "Invalid score! Please enter a score between 0 and 100.";
+        }
+        console.log("The grade for the score " + score + " is: " + grade);
+5 In the following shopping cart add, remove, edit items
+
+const shoppingCart = ['Milk', 'Coffee', 'Tea', 'Honey']
+add 'Meat' in the beginning of your shopping cart if it has not been already added
+add Sugar at the end of you shopping cart if it has not been already added
+remove 'Honey' if you are allergic to honey
+modify Tea to 'Green Tea' 
+      
+let shoppingCart = ['Milk', 'Coffee', 'Tea', 'Honey'];
+
+if (!shoppingCart.includes('Meat')) {
+    shoppingCart.unshift('Meat');
+}
+
+if (!shoppingCart.includes('Sugar')) {
+    shoppingCart.push('Sugar');
+}
+
+
+let allergicToHoney = true; 
+if (allergicToHoney && shoppingCart.includes('Honey')) {
+    let index = shoppingCart.indexOf('Honey'); 
+    shoppingCart.splice(index, 1); 
+    }
+
+let teaIndex = shoppingCart.indexOf('Tea');
+if (teaIndex !== -1) {
+}
+
+console.log(shoppingCart);
+
+//6 Iterate through the array, ["HTML", "CSS", "JS", "React", "Redux", "Node", "Express", "MongoDB"] using a for loop or for of loop and print out the items.
+const techStack = ["HTML", "CSS", "JS", "React", "Redux", "Node", "Express", "MongoDB"];
+
+for (let i = 0; i < techStack.length; i++) {
+    console.log(techStack[i]);
+}
+*/
+
+function getUserName() {
+    let name1 = prompt("Enter your name");
+    return name1;
+}
+
+function getUserSalary() {
+    let salary = (prompt("Enter your salary")); 
+    return salary;
+}
+
+function calc(salary) {
+    let calculated = (35 /100) * 35000;
+    if (calculated > 35000) {
+        console.log("You are eligible");
+    } else {
+        console.log("You are not eligible");
+    }
+}
+
+
+let name = getUserName();
+let salary = getUserSalary();
+calc(salary);
+
+
+
+
+
+    </script>
+</body>
+</html>

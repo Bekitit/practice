@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
+  <style>
+    .grid-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 2fr 1fr;
+      grid-gap: 5px;
+      background-color: white;
+      color: black;
+      font-size: 1.5em;
+      padding: 10px;
+      border-radius: 5%;
+      box-shadow: 0px 5px 15px grey;
+      width: 200px;
+      height: 300px;
+      margin: 20px;
+    }
+    .heart {
+      text-align: center;
+      align-self: center;
+      font-size: 2em;
+      color: red;
+    }
+    .top-left {
+      padding: 0.1em;
+    }
+    .bottom-right {
+      align-self: end;
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="list"></div>
+
+  <script>
+    const grid = document.createElement('div');
+    grid.className = 'grid-item';
+
+    // Top-left corner
+    const numDiv = document.createElement('div');
+    numDiv.className = 'top-left';
+    numDiv.innerHTML = 'X<br>';
+    numDiv.id = 'top-num';
+    const iconDiv = document.createElement('div');
+    iconDiv.style.color = 'red';
+    iconDiv.innerHTML = '♥';
+    numDiv.appendChild(iconDiv);
+    grid.appendChild(numDiv);
+
+    // Middle cells
+    grid.appendChild(document.createElement('div'));
+    grid.appendChild(document.createElement('div'));
+    grid.appendChild(document.createElement('div'));
+
+    // Center heart
+    const heartDiv = document.createElement('div');
+    heartDiv.className = 'heart';
+    heartDiv.innerHTML = '♥';
+    grid.appendChild(heartDiv);
+
+    // More empty cells
+    grid.appendChild(document.createElement('div'));
+    grid.appendChild(document.createElement('div'));
+    grid.appendChild(document.createElement('div'));
+
+    // Bottom-right corner
+    let bottomDiv = document.createElement('div');
+    bottomDiv.id = 'bottom-num';
+    bottomDiv.className = 'bottom-right';
+    bottomDiv.innerHTML = 'X<br>';
+    const iconDiv2 = document.createElement('div');
+    iconDiv2.style.color = 'red';
+    iconDiv2.innerHTML = '♥';
+    bottomDiv.appendChild(iconDiv2);
+    grid.appendChild(bottomDiv);
+
+    // Add card to page
+    document.getElementById('list').append(grid);
+  </script>
+</body>
+</html>

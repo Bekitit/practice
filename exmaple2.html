@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="mb-3 col-6">
+          <label for="nameInput" class="form-label">Name</label>
+          <input type="text" class="form-control" id="nameInput" placeholder="Write your name here">
+        </div>
+      
+        <div class="mb-3 col-6">
+          <label for="salaryInput" class="form-label">Salary</label>
+          <input type="number" class="form-control" id="salaryInput" placeholder="Enter your salary here">
+        </div>
+      
+        <div>
+          <button type="button" onclick="check()" class="btn btn-primary">Check</button>
+        </div>
+      </div>
+      
+      <script>
+        document.getElementById("button").addEventListener("click",function(){
+          const name = document.getElementById("nameInput").value;
+          const salary = document.getElementById("SalaryInput").value;
+            localStorage.setItem("nameInput",name);
+            localStorage.setItem("SalaryInput",salary);
+        })
+      </script>
+      
+    
+</body>
+</html>

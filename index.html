@@ -1,39 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Basic Bootstrap Template</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>Multiple Choice Quiz (A to D)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    
-    <div class="container  ">
-        
-        
-        <div class="row mt-3 gx-2">
-            <div class="col-md-3 border border-primary">Column 1</div>
-            <div class="col-md-3 border border-primary">Column 2</div>
-        
-            <div class="col-md-3 border border-primary">Column 3</div>
-            <div class="col-md-3 border border-primary">Column 4</div>
-        </div>
-        <div class="row mt-3 gx-2">
-            <div class="col-lg-1 col-md-6 col-sm-2 col-4 border border-5">Column 1</div>
-            <div class="col-md-4 border border-primary col-4">Column 2</div>
-            <div class="col-md-4 border border-primary col-4">Column 3</div>
-            
-        </div>
-        <div class="row mt-3 gx-2 ">
-            <div class="col-md-6 border border-primary">Column 1</div>
-            <div class="col-md-6 border border-primary">Column 2</div>
-           
-            
-        </div>
-    </div>
+<body class="bg-light p-4">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <div class="container">
+    <h2 class="mb-4"> Quiz Questions</h2>
+    <form id="questionForm" class="border p-4 bg-white rounded shadow mb-4">
+      <div class="mb-3">
+        <label class="form-label">Question</label>
+        <input type="text" class="form-control" id="questionText" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Option A</label>
+        <input type="text" class="form-control" id="optionA" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Option B</label>
+        <input type="text" class="form-control" id="optionB" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Option C</label>
+        <input type="text" class="form-control" id="optionC" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Option D</label>
+        <input type="text" class="form-control" id="optionD" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Correct Answer (A, B, C, or D)</label>
+        <input type="text" class="form-control" id="correctAnswer" required>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="addQuestion()">Add Question</button>
+    </form>
+
+    <button id="startQuizBtn" class="btn btn-success mb-4" onclick="startQuiz()">Start Quiz</button>
+
+    <form id="answerForm" class="border p-4 bg-white rounded shadow d-none">
+      <div id="displayQuestion" class="mb-3 fw-bold text-dark"></div>
+      <div class="form-check">
+        <input type="radio" name="answer" value="A" class="form-check-input" id="ansA">
+        <label class="form-check-label" id="labelA" for="ansA">A:</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" name="answer" value="B" class="form-check-input" id="ansB">
+        <label class="form-check-label" id="labelB" for="ansB">B:</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" name="answer" value="C" class="form-check-input" id="ansC">
+        <label class="form-check-label" id="labelC" for="ansC">C:</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" name="answer" value="D" class="form-check-input" id="ansD">
+        <label class="form-check-label" id="labelD" for="ansD">D:</label>
+      </div>
+      <button type="button" class="btn btn-primary mt-3" onclick="submitAnswer()">Submit Answer</button>
+    </form>
+
+    <div id="result" class="mt-4 fw-bold fs-5"></div>
+  </div>
+
+  <script>
+    let questions = JSON.parse(localStorage.getItem("quizQuestions")) || [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function addQuestion() {
+      const question = {
+        question: document.getElementById('questionText').value,
+        A: document.getElementById('optionA').value,
+        B: document.getElementById('optionB').value,
+        C: document.getElementById('optionC').value,
+        D: document.getElementById('optionD').value,
+        correct: document.getElementById('correctAnswer').value.toUpperCase()
+      };
+
+      questions.push(question);
+      localStorage.setItem("quizQuestions", JSON.stringify(questions));
+
+      alert(" Question added and saved!");
+      document.getElementById('questionForm').reset();
+    }
+
+    function startQuiz() {
+      if (questions.length === 0) {
+        alert("Please add at least one question!");
+        return;
+      }
+
+      currentQuestionIndex = 0;
+      score = 0;
+      document.getElementById('answerForm').classList.remove('d-none');
+      document.getElementById('startQuizBtn').style.display = 'none';
+      document.getElementById('questionForm').style.display = 'none';
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[currentQuestionIndex];
+      document.getElementById('displayQuestion').textContent = q.question;
+      document.getElementById('labelA').textContent = "A: " + q.A;
+      document.getElementById('labelB').textContent = "B: " + q.B;
+      document.getElementById('labelC').textContent = "C: " + q.C;
+      document.getElementById('labelD').textContent = "D: " + q.D;
+      document.querySelectorAll('input[name="answer"]').forEach(input => input.checked = false);
+    }
+
+    function submitAnswer() {
+      const selected = document.querySelector('input[name="answer"]:checked');
+      if (!selected) {
+        alert("Please select an answer.");
+        return;
+      }
+
+      if (selected.value === questions[currentQuestionIndex].correct) {
+        score++;
+      }
+
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        document.getElementById('answerForm').classList.add('d-none');
+        document.getElementById('result').textContent = " Quiz finished! Your score: " + score + " / " + questions.length;
+
+      }
+    }
+  </script>
+
 </body>
 </html>
-   

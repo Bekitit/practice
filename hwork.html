@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loan Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <h2 class="mb-4">Loan Application Form</h2>
+    <form id="loanForm" class="border p-4 bg-white shadow rounded">
+      <div class="mb-3">
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="income" class="form-label">Monthly Income</label>
+        <input type="number" class="form-control" id="income" required>
+      </div>
+      <div class="mb-3">
+        <label for="loanAmount" class="form-label">Loan Amount</label>
+        <input type="number" class="form-control" id="loanAmount" required>
+      </div>
+      <div class="mb-3">
+        <label for="duration" class="form-label">Duration (in years)</label>
+        <input type="number" class="form-control" id="duration" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Apply</button>
+     
+        <button id="doneBtn" class="btn btn-success ">Show Results</button>
+
+    
+    </form>
+    
+
+    <div id="result" class="mt-4"></div>
+  </div>
+
+  <script>
+    const applicants = [];
+
+const isEligible = income => income >= 30000;
+const getInterestRate = loanAmount => loanAmount > 50000 ? 0.1 : 0.05;
+const calculateTotalRepayment = (loanAmount, rate, years) => loanAmount + (loanAmount * rate * years);
+const calculateMonthlyRepayment = (total, years) => total / (years * 12);
+
+document.getElementById("loanForm").addEventListener("submit", function(e) {
+  e.preventDefault();alert("Application submitted!");
+
+  const name = document.getElementById("name").value;
+  const income = parseFloat(document.getElementById("income").value);
+  const loanAmount = parseFloat(document.getElementById("loanAmount").value);
+  const duration = parseInt(document.getElementById("duration").value);
+
+  const eligible = isEligible(income);
+  const rate = getInterestRate(loanAmount);
+  const total = calculateTotalRepayment(loanAmount, rate, duration);
+  const monthly = calculateMonthlyRepayment(total, duration);
+
+  applicants.push({
+    name,
+    income,
+    loanAmount,
+    duration,
+    eligible,
+    rate,
+    total,
+    monthly
+  });
+
+  
+  document.getElementById("loanForm").reset();
+});
+
+document.getElementById("doneBtn").addEventListener("click", function(e) {
+  e.preventDefault();
+  const resultDiv = document.getElementById("result");
+  resultDiv.innerHTML = "";
+  if (applicants.length == 0) {
+    resultDiv.innerHTML = "<div class='alert alert-warning'>No applicants to display.</div>";
+    return; 
+  }
+  
+ 
+  applicants.forEach(function(app) {
+  if (app.eligible) {
+    resultDiv.innerHTML += "<h3>Application Approved</h3>";
+    resultDiv.innerHTML +=
+     "<div class='alert alert-success'>" +
+     " <strong>" + app.name + "</strong><br>" +
+      "Loan Amount: $" + app.loanAmount + "<br>" +
+      "Duration:"  + app.duration +  "yrs<br>" +
+      "Interest Rate:"  + (app.rate * 100) + "%<br>" +
+      "Total Repayment: $" + app.total + "<br>" +
+      "Monthly Payment: $" + app.monthly +
+     "</div>;"
+  } else {
+    resultDiv.innerHTML += "<h3>Application Rejected</h3>";
+    resultDiv.innerHTML +=
+      "<div class='alert alert-danger'>" +
+      "<strong>" + app.name + "</strong><br>" +
+      "Income: $" + app.income + "(Minimum is $30,000)"+
+      "</div>;"
+  }
+});
+
+  });
+
+
+  </script>
+
+</body>
+</html>

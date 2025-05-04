@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h2 class="mb-4">Choice Quiz</h2>
+    <form id="QuestionForm" class="border p-4 bg-white shadow rounded">
+      <div class="mb-3">
+        <label for="name" class="form-label">Enter Question Here</label>
+        <input type="text" class="form-control" id="QuestionText" required>
+        <label for="text" class="form-label">Enter Choices</label>
+        <input type="text" class="form-control mb-2" placeholder="choice A" id="optionA" required>
+        <input type="text" class="form-control mb-2" placeholder="choice B" id="optionB" required>
+        <input type="text" class="form-control mb-2" placeholder="choice C" id="optionC" required>
+        <input type="text" class="form-control mb-2" placeholder="choice D" id="optionD" required>
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Enter Correct Answer</label>
+        <input type="text" class="form-control" id="correct Answer" required>
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+      </div>
+    </form>  
+    <button id="startQuizBtn" class="btn btn-success mt-4 ">Start Quiz</button>
+</div>
+<form id="answerForm" class="border p-4 bg-white rounded">
+    <div id="displayQuestion" class="mb-3 fw-bold text-dark"></div>
+    <div class="form-check">
+      <input type="radio" name="answer" value="A" class="form-check-input" id="ansA">
+      <label class="form-check-label" id="labelA" for="ansA">A:</label>
+    </div>
+    <div class="form-check">
+      <input type="radio" name="answer" value="B" class="form-check-input" id="ansB">
+      <label class="form-check-label" id="labelB" for="ansB">B:</label>
+    </div>
+    <div class="form-check">
+      <input type="radio" name="answer" value="C" class="form-check-input" id="ansC">
+      <label class="form-check-label" id="labelC" for="ansC">C:</label>
+    </div>
+    <div class="form-check">
+      <input type="radio" name="answer" value="D" class="form-check-input" id="ansD">
+      <label class="form-check-label" id="labelD" for="ansD">D:</label>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit Answer</button>
+  </form>
+  <div id="result" class=" mt-4 fw-bold"></div>
+  <script>
+    const questions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+  
+    function addQuestion() {
+      const question = {
+        question: document.getElementById('questionText').value,
+        A: document.getElementById('optionA').value,
+        B: document.getElementById('optionB').value,
+        C: document.getElementById('optionC').value,
+        D: document.getElementById('optionD').value,
+        correct: document.getElementById('correctAnswer').value.toUpperCase()
+      };
+  
+      questions.push(question);
+      alert("Question added!");
+      document.getElementById('questionForm').reset();
+    }
+  </script>
+  
+    
+
+</body>
+</html>
